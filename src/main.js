@@ -10,10 +10,13 @@ import {
   hideLoader,
   showLoadMoreButton,
   hideLoadMoreButton,
+  showScrollUpButton,
+  hideScrollUpButton,
 } from './js/render-functions.js';
 
 const form = document.querySelector('.form');
 const loadMore = document.querySelector('.loadMoreBtn');
+const scrollUp = document.querySelector('.scrollUp');
 
 iziToast.settings({
   timeout: 5000,
@@ -128,6 +131,7 @@ const handleLoadMore = async () => {
       resetSearchState();
       return;
     }
+    showScrollUpButton();
     showLoadMoreButton();
 
     scrollGallery();
@@ -142,3 +146,12 @@ const handleLoadMore = async () => {
   hideLoader();
 };
 loadMore.addEventListener('click', handleLoadMore);
+
+const handleScrollUpButton = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+  hideScrollUpButton();
+};
+scrollUp.addEventListener('click', handleScrollUpButton);

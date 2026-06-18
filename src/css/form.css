@@ -55,6 +55,30 @@ button:focus {
   margin: 0 auto;
 }
 
+.scrollUp {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  min-width: 96px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background-color: #242424;
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.24);
+  transition:
+    transform 250ms ease,
+    background-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.scrollUp:hover,
+.scrollUp:focus {
+  transform: translateY(-3px);
+  background-color: #4e75ff;
+  box-shadow: 0 16px 36px rgba(16, 24, 40, 0.3);
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -122,6 +146,11 @@ button:focus {
 }
 
 @media only screen and (min-width: 768px) {
+  .scrollUp {
+    right: 24px;
+    bottom: 24px;
+  }
+
   .gallery {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;

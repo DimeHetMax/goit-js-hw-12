@@ -3,6 +3,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const galler = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 const button = document.querySelector('.loadMoreBtn');
+const buttonUp =document.querySelector(".scrollUp");
+
 const lightbox = new SimpleLightbox('.gallery > li > a');
 const galleryCard = ({
   largeImageURL,
@@ -46,6 +48,12 @@ const hideLoadMoreButton = () => {
   button.classList.add('visually-hidden');
 };
 
+const showScrollUpButton = () => {
+  buttonUp.classList.remove('visually-hidden');
+};
+const hideScrollUpButton = () => {
+  buttonUp.classList.add('visually-hidden');
+};
 export {
   createGallery,
   clearGallery,
@@ -53,4 +61,6 @@ export {
   hideLoader,
   showLoadMoreButton,
   hideLoadMoreButton,
+  showScrollUpButton,
+  hideScrollUpButton
 };
