@@ -67,7 +67,8 @@ const handleFormSubmit = async event => {
       throw new Error('no Images');
     }
     createGallery(data.hits);
-
+    showLoadMoreButton();
+    scrollGallery();
     const hasMoreResults = data.totalHits > data.hits.length;
     if (!hasMoreResults) {
       hideLoadMoreButton();
@@ -76,9 +77,6 @@ const handleFormSubmit = async event => {
         message: 'No content to load',
       });
     }
-
-    showLoadMoreButton();
-    scrollGallery();
 
     searchState.query = userInput;
     searchState.totalHits = data.totalHits;
@@ -99,17 +97,6 @@ form.addEventListener('submit', handleFormSubmit);
 const handleLoadMore = async () => {
   showLoader();
   hideLoadMoreButton();
-  const hasMoreResults = searchState.totalHits > searchState.perPage;
-  if (!hasMoreResults) {
-    hideLoadMoreButton();
-    hideLoader();
-    iziToast.info({
-      iconUrl: '',
-      message: "We're sorry, but you've reached the end of search results.",
-    });
-    resetSearchState();
-    return;
-  }
   try {
     const data = await getImagesByQuery(
       searchState.query,
@@ -119,10 +106,21 @@ const handleLoadMore = async () => {
       throw new Error('no Images');
     }
     createGallery(data.hits);
-    showLoadMoreButton();
-    scrollGallery();
     searchState.pageNumber += 1;
     searchState.perPage += data.hits.length;
+    const hasMoreResults = searchState.totalHits > searchState.perPage;
+    if (!hasMoreResults) {
+      hideLoadMoreButton();
+      hideLoader();
+      iziToast.info({
+        iconUrl: '',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+      resetSearchState();
+      return;
+    }
+    showLoadMoreButton();
+    scrollGallery();
   } catch (error) {
     iziToast.error({
       message: `${error.message}`,
