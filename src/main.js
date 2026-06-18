@@ -23,8 +23,7 @@ iziToast.settings({
   position: 'topRight',
   transitionOut: 'flipOutX',
   iconUrl: './img/octagon.svg',
-  messageColor: '#fff',
-  color: '#EF4040',
+  maxWidth: '400px',
 });
 const searchState = {
   query: '',
@@ -34,7 +33,7 @@ const searchState = {
 };
 const scrollGallery = () => {
   const item = document.querySelector('.item');
-  if(!item) return;
+  if (!item) return;
 
   const cardHeight = item.getBoundingClientRect().height;
 
@@ -74,14 +73,12 @@ const handleFormSubmit = async event => {
       hideLoadMoreButton();
       hideLoader();
       iziToast.info({
-        iconUrl: '',
         message: 'No content to load',
       });
     }
 
     showLoadMoreButton();
     scrollGallery();
-    
 
     searchState.query = userInput;
     searchState.totalHits = data.totalHits;
@@ -90,6 +87,8 @@ const handleFormSubmit = async event => {
   } catch (error) {
     iziToast.error({
       message: `${error.message}`,
+      messageColor: '#fff',
+      color: '#EF4040',
     });
   }
   hideLoader();
@@ -127,6 +126,9 @@ const handleLoadMore = async () => {
   } catch (error) {
     iziToast.error({
       message: `${error.message}`,
+      messageColor: '#fff',
+      color: '#EF4040',
+      maxWidth: '400px',
     });
   }
   hideLoader();
