@@ -31,17 +31,18 @@ const searchState = {
   totalHits: 0,
   perPage: 0,
 };
+
 const scrollGallery = () => {
   const item = document.querySelector('.item');
   if (!item) return;
 
   const cardHeight = item.getBoundingClientRect().height;
-
   window.scrollBy({
-    top: cardHeight * 2,
+    top: cardHeight * 3,
     behavior: 'smooth',
   });
 };
+
 const resetSearchState = () => {
   searchState.query = '';
   searchState.pageNumber = 1;
@@ -97,6 +98,14 @@ form.addEventListener('submit', handleFormSubmit);
 const handleLoadMore = async () => {
   showLoader();
   hideLoadMoreButton();
+  const hasMoreResults = searchState.totalHits > searchState.perPage;
+  if (!hasMoreResults) {
+    hideLoadMoreButton();
+    hideLoader();
+    resetSearchState();
+    return;
+  }
+
   try {
     const data = await getImagesByQuery(
       searchState.query,
@@ -120,6 +129,7 @@ const handleLoadMore = async () => {
       return;
     }
     showLoadMoreButton();
+
     scrollGallery();
   } catch (error) {
     iziToast.error({
