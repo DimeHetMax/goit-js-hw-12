@@ -47,7 +47,6 @@ const showLoadMoreButton = () => {
 const hideLoadMoreButton = () => {
   button.classList.add('visually-hidden');
 };
-
 const showScrollUpButton = () => {
   buttonUp.classList.remove('visually-hidden');
 };

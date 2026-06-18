@@ -1,8 +1,6 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
 import getImagesByQuery from './js/pixabay-api.js';
-
 import {
   createGallery,
   clearGallery,
@@ -34,7 +32,6 @@ const searchState = {
   totalHits: 0,
   perPage: 0,
 };
-
 const scrollGallery = () => {
   const item = document.querySelector('.item');
   if (!item) return;
@@ -45,7 +42,6 @@ const scrollGallery = () => {
     behavior: 'smooth',
   });
 };
-
 const resetSearchState = () => {
   searchState.query = '';
   searchState.pageNumber = 1;
@@ -96,8 +92,6 @@ const handleFormSubmit = async event => {
   hideLoader();
   event.target.reset();
 };
-form.addEventListener('submit', handleFormSubmit);
-
 const handleLoadMore = async () => {
   showLoader();
   hideLoadMoreButton();
@@ -145,8 +139,6 @@ const handleLoadMore = async () => {
   }
   hideLoader();
 };
-loadMore.addEventListener('click', handleLoadMore);
-
 const handleScrollUpButton = () => {
   window.scrollTo({
     top: 0,
@@ -154,4 +146,6 @@ const handleScrollUpButton = () => {
   });
   hideScrollUpButton();
 };
+form.addEventListener('submit', handleFormSubmit);
+loadMore.addEventListener('click', handleLoadMore);
 scrollUp.addEventListener('click', handleScrollUpButton);
